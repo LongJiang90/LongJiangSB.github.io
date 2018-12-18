@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="安卓学习笔记   [TOC] 项目结构介绍 src：存放所有java源代码 gen：系统自动生成的配置文件 Android x.x.x：包括构建程序所需的x.x.x版本的安卓SDK、APIs assets：存放资源图片，未使用时不会生成id且不会加入到apk包里面占大小 res：所有用到的资源，如图片、布局等 drawable-xxx：不同分辨率的图片资源 layout：布局文件 values：">
+<meta name="keywords" content="iOS,Android,Python,Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蒋龙的技术专栏">
+<meta property="og:url" content="http://yoursite.com/2017/05/16/14949046942266/index.html">
+<meta property="og:site_name" content="蒋龙的技术专栏">
+<meta property="og:description" content="安卓学习笔记   [TOC] 项目结构介绍 src：存放所有java源代码 gen：系统自动生成的配置文件 Android x.x.x：包括构建程序所需的x.x.x版本的安卓SDK、APIs assets：存放资源图片，未使用时不会生成id且不会加入到apk包里面占大小 res：所有用到的资源，如图片、布局等 drawable-xxx：不同分辨率的图片资源 layout：布局文件 values：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14954246773999.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14954249752056.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14954340564427.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14954342298825.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14954346418663.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/QQ20170518-100512@2x.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14954364778784.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14954370339979.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14954395973770.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14955021077367.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14955030063907.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14955033787604.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14955044760736.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14955046019762.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14955054131834.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/%E6%B7%BB%E5%8A%A0%E7%BA%A6%E6%9D%9F.gif">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/%E6%8E%A7%E4%BB%B6%E4%B9%8B%E9%97%B4%E6%B7%BB%E5%8A%A0%E7%BA%A6%E6%9D%9F.gif">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/%E5%88%A0%E9%99%A4%E7%BA%A6%E6%9D%9F.gif">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/%E5%88%A0%E9%99%A4%E6%89%80%E6%9C%89%E7%BA%A6%E6%9D%9F.gif">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/%E5%88%A0%E9%99%A4%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E6%89%80%E6%9C%89%E7%BA%A6%E6%9D%9F.gif">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14955251925125.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14955253191876.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14956039654163.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14956042418104.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14958464865233.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14966427857919.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14984418584810.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14984426006712.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14984422055820.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14984422209821.jpg">
+<meta property="og:updated_time" content="2018-06-27T07:33:28.100Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蒋龙的技术专栏">
+<meta name="twitter:description" content="安卓学习笔记   [TOC] 项目结构介绍 src：存放所有java源代码 gen：系统自动生成的配置文件 Android x.x.x：包括构建程序所需的x.x.x版本的安卓SDK、APIs assets：存放资源图片，未使用时不会生成id且不会加入到apk包里面占大小 res：所有用到的资源，如图片、布局等 drawable-xxx：不同分辨率的图片资源 layout：布局文件 values：">
+<meta name="twitter:image" content="http://yoursite.com/2017/05/16/14949046942266/media/14949046942266/14954246773999.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/16/14949046942266/">
+
+
+
+
+
+  <title> | 蒋龙的技术专栏</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蒋龙的技术专栏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">iOS、Android、Python、Flutter Coder</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/16/14949046942266/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiang Long">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒋龙的技术专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T03:18:14Z">
+                2017-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2> 安卓学习笔记 </h2>
+
+<p>[TOC]</p>
+<h3 id="项目结构介绍"><a href="#项目结构介绍" class="headerlink" title="项目结构介绍"></a>项目结构介绍</h3><ul>
+<li>src：存放所有java源代码</li>
+<li>gen：系统自动生成的配置文件</li>
+<li>Android x.x.x：包括构建程序所需的x.x.x版本的安卓SDK、APIs</li>
+<li>assets：存放资源图片，未使用时不会生成id且不会加入到apk包里面占大小</li>
+<li>res：所有用到的资源，如图片、布局等</li>
+<li>drawable-xxx：不同分辨率的图片资源</li>
+<li>layout：布局文件</li>
+<li>values：字符串、主题、颜色、样式等资源文件（values-v11/14 是现在版本出现的 v-11是3.0版本14是4.0版本）</li>
+<li>AndroManifest.xml：清单文件，配置应用的相关的主要信息（包名、权限、程序组件等）</li>
+</ul>
+<h3 id="控件概述"><a href="#控件概述" class="headerlink" title="控件概述"></a>控件概述</h3><ul>
+<li><p><b>TexView：</b>只能做显示框</p>
+<ul>
+<li>控件属性（id-id，layout_width-宽度，高度，text-内容，textSize-字体大小（单位：一般是sp），textColor-颜色，background-背景）</li>
+<li>控件宽度：warp_content-和文本宽度一样，match_parent-铺满父容器（在2.3的api之后添加的属性），fill_parent-填充父容器（在2.3之前的属性）</li>
+<li>跑马灯效果:当页面中只有一个textView时，<br><img src="media/14949046942266/14954246773999.jpg" alt="-w400"><br>多个时，需要自定义一个继承于textView类，在里面定义一个isFocused（）方法且返回true，然后再xml里面使用自定义控件（包名.类名）<br><img src="media/14949046942266/14954249752056.jpg" alt="-w400"></li>
+</ul>
+</li>
+<li><p><b>EditText</b>：输入框</p>
+<ul>
+<li>控件属性（比显示框多出了 hint-提示文本，inputType-文本类型 这2个属性）</li>
+<li>修改样式</li>
+</ul>
+</li>
+<li><p><b>AutoCompleteTextView</b> 动态匹配输入的内容（输入东西，出现相应的列表以供选择）</p>
+<ul>
+<li>控件属性（completionThreshold：设置输入多少个字符开始匹配）</li>
+<li>1.在activity里面找到对应控件，2.创建一个适配器，3.初始化数据源，4.用setAdapter将适配器和控件关联起来<br><img src="media/14949046942266/14954340564427.jpg" alt="-w400"></li>
+</ul>
+</li>
+<li><b>MultiAutoCompleteTextView</b> 相较于autocom…可以多设置一个分隔符的属性<br><img src="media/14949046942266/14954342298825.jpg" alt="-w400"><br>初始化<br><img src="media/14949046942266/14954346418663.jpg" alt="-w400"></li>
+<li><b>ImageView</b>：显示图片<ul>
+<li>控件属性（src-图片，background -背景图片、颜色）</li>
+</ul>
+</li>
+<li><p><b>Button、ImageButton</b></p>
+<ul>
+<li>获取xml中的按钮：btn = (Button) findViewById(R.id.button的id);</li>
+<li>控件属性： ImageButton无text属性，Button无src属性</li>
+<li>按钮onClick事件来监听按钮点击（所有控件都有这个事件），<ul>
+<li>监听事件实现的几种写法：1.匿名内部类 setOnClickListener(new OnClickLen…这里将会是一个bolck回调)，2.独立类（相当于弄一个父类出来<br><img src="media/14949046942266/QQ20170518-100512@2x.png" alt="QQ20170518-100512@2x -w400"><br>，3.实现接口的方式 需要在类实现OnClickListener接口（使用implements关键词调用），会在当前类实现onClick方法（会自动生成）btn.setOnClickListener(this)调用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><b>ToggleButton</b> 开关按钮-相当于switch控件，默认是关闭的</p>
+<ul>
+<li>控件属性: checked-是否为开，textOff-关闭显示什么，textOn-打开显示什么</li>
+<li>使用：给按钮设置监听器，需要类实现CheckedChangeListener接口<br><img src="media/14949046942266/14954364778784.jpg" alt="-w400"></li>
+</ul>
+</li>
+<li><b>CheckBox</b> 复选框<ul>
+<li>控件属性：<br><img src="media/14949046942266/14954370339979.jpg" alt="-w400"></li>
+<li>使用：<br><img src="media/14949046942266/14954395973770.jpg" alt="-w400"></li>
+</ul>
+</li>
+<li><b>RadioGroup和RadioButton</b> 单选列表<ul>
+<li>属性：<br><img src="media/14949046942266/14955021077367.jpg" alt="-w400"></li>
+</ul>
+</li>
+</ul>
+<h3 id="String的使用"><a href="#String的使用" class="headerlink" title="String的使用"></a>String的使用</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在string文件里面写入 &lt;string name="xxx（用英文）"&gt;调用后获取的字符串&lt;/string&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="implements关键字代表让一个类拥有另一个类的属性"><a href="#implements关键字代表让一个类拥有另一个类的属性" class="headerlink" title="implements关键字代表让一个类拥有另一个类的属性"></a>implements关键字代表让一个类拥有另一个类的属性</h3><h3 id="六大布局（布局中可以包含其他布局，可相互套用）"><a href="#六大布局（布局中可以包含其他布局，可相互套用）" class="headerlink" title="六大布局（布局中可以包含其他布局，可相互套用）"></a>六大布局（布局中可以包含其他布局，可相互套用）</h3><h4 id="线性布局（LinerLayout）"><a href="#线性布局（LinerLayout）" class="headerlink" title="线性布局（LinerLayout）"></a>线性布局（LinerLayout）</h4><p>是线性布局控件，决定它包含的子控件是水平-Hor 还是垂直-Ver 排布方式。<br><img src="media/14949046942266/14955030063907.jpg" alt="-w400"><br><img src="media/14949046942266/14955033787604.jpg" alt="-w400"><br>layout_weight这个属性赋值 代表所有控件的属性都加起来后占得比例。例如：控件a的该属性=1，控件b的该属性=2，那么到时候a的比例就是1/3.</p>
+<h4 id="相对布局（RelativeLayout）"><a href="#相对布局（RelativeLayout）" class="headerlink" title="相对布局（RelativeLayout）"></a>相对布局（RelativeLayout）</h4><p>控件的位置设置是相对的，它包含的子空间将以控件之间相对位置或子类控件相对于父类容器的位置的方式排列。<br><img src="media/14949046942266/14955044760736.jpg" alt=""><br>常用属性：<br>相对父类容器的属性<br><img src="media/14949046942266/14955046019762.jpg" alt="-w400"><br>相对于子类控件的属性<br><img src="media/14949046942266/14955054131834.jpg" alt="-w400"></p>
+<h4 id="约束布局（ConstraintLayout）"><a href="#约束布局（ConstraintLayout）" class="headerlink" title="约束布局（ConstraintLayout）"></a>约束布局（ConstraintLayout）</h4><p>ConstraintLayout是Android Studio 2.2中主要的新增功能之一，也是Google在去年的I/O大会上重点宣传的一个功能。非常适合使用可视化的方式来编写界面，但并不太适合使用XML的方式来进行编写。当然，可视化操作的背后仍然还是使用的XML代码来实现的，只不过这些代码是由Android Studio根据我们的操作自动生成的。还可以有效地解决布局嵌套过多的问题</p>
+<ul>
+<li><p>添加约束-拖动右边视图中的点来确定约束对应哪个，可以是底部视图，也可以是其他控件 </p>
+<ul>
+<li>控件对根视图添加约束<br><img src="media/14949046942266/%E6%B7%BB%E5%8A%A0%E7%BA%A6%E6%9D%9F.gif" alt="添加约束-w400"></li>
+<li>控件之间的约束添加<br><img src="media/14949046942266/%E6%8E%A7%E4%BB%B6%E4%B9%8B%E9%97%B4%E6%B7%BB%E5%8A%A0%E7%BA%A6%E6%9D%9F.gif" alt="控件之间添加约束-w400"></li>
+</ul>
+</li>
+<li><p>删除约束</p>
+<ul>
+<li><p>单个约束删除<br><img src="media/14949046942266/%E5%88%A0%E9%99%A4%E7%BA%A6%E6%9D%9F.gif" alt="删除约束-w400"></p>
+</li>
+<li><p>单个控件所有约束删除<br><img src="media/14949046942266/%E5%88%A0%E9%99%A4%E6%89%80%E6%9C%89%E7%BA%A6%E6%9D%9F.gif" alt="删除所有约束-w400"></p>
+</li>
+<li><p>当前页面所有约束删除<br><img src="media/14949046942266/%E5%88%A0%E9%99%A4%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E6%89%80%E6%9C%89%E7%BA%A6%E6%9D%9F.gif" alt="删除当前页面所有约束-w400"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="帧布局（FrameLayout）"><a href="#帧布局（FrameLayout）" class="headerlink" title="帧布局（FrameLayout）"></a>帧布局（FrameLayout）</h4><p>所有的元素都不能被指定放置的位置，它们都在父视图的左上角，并且后面的子元素在前面子元素之上。 可以用来做加载进度条和文字。<br>当你想设置前景图时，可以使用foreground将当前控件放在最前面来。</p>
+<h4 id="绝对布局（AbsoluteLayout）"><a href="#绝对布局（AbsoluteLayout）" class="headerlink" title="绝对布局（AbsoluteLayout）"></a>绝对布局（AbsoluteLayout）</h4><p>坐标布局，直接指定子元素的绝对位置。<br>不常用。了解下就OK</p>
+<h4 id="表格布局（TableLayout）"><a href="#表格布局（TableLayout）" class="headerlink" title="表格布局（TableLayout）"></a>表格布局（TableLayout）</h4><p>相当于tableview 每一行为一个TableRow对象，继承自View。<br>自身的属性<br><img src="media/14949046942266/14955251925125.jpg" alt="-w400"><br><b>当想要所有控件都调用的话，直接用 = “*”;</b></p>
+<p>下面这2个属性是使用在TableRow内部控件的属性中的<br><img src="media/14949046942266/14955253191876.jpg" alt="-w400"></p>
+<h3 id="Activity（相当于OC的VC）"><a href="#Activity（相当于OC的VC）" class="headerlink" title="Activity（相当于OC的VC）"></a>Activity（相当于OC的VC）</h3><p>什么是Activity？ 视图控制器<br><strong>创建到销毁的生命周期：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">onCreate()----创建</span><br><span class="line">onStart()-----运行</span><br><span class="line">onResume()----获取焦点</span><br><span class="line">onPause()-----失去焦点</span><br><span class="line">onStop()------暂停</span><br><span class="line">onDestory()---销毁</span><br><span class="line">onRestart()---重新运行</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: onCreate</span><br><span class="line">e=&gt;end: onDestory</span><br><span class="line">op1=&gt;operation: onStart</span><br><span class="line">op2=&gt;operation: onResume</span><br><span class="line">op3=&gt;operation: onPause</span><br><span class="line">op4=&gt;operation: onStop</span><br><span class="line">op5=&gt;operation: onRestart</span><br><span class="line">cond=&gt;condition: 不重新启动？</span><br><span class="line"></span><br><span class="line">st-&gt;op1-&gt;op2-&gt;op3-&gt;op4-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op1</span><br></pre></td></tr></table></figure>
+<p><strong>从启动到后台，再到前台的生命周期：</strong><br><img src="media/14949046942266/14956039654163.jpg" alt=""><br><strong>从启动到失去焦点，再到获取到焦点的生命周期：</strong><br><img src="media/14949046942266/14956042418104.jpg" alt=""></p>
+<h4 id="Intent-意图"><a href="#Intent-意图" class="headerlink" title="Intent-意图"></a>Intent-意图</h4><p>它可以启动一个activity、Service、Broadcasts（广播）</p>
+<ul>
+<li>属性：<em>Action</em>-动作(常用),<em>Data</em>-数据(常用),<em>Category</em>-分类,<em>Type</em>-类型,<em>Compent</em>-组件,<em>Extra</em>-扩展信。</li>
+<li><strong>Action</strong>-是一个字符串常量，系统自己定义了一些常量，例如：ACTION_CALL-启动电话、ACTION_BATTERY_LOW-发送一个电池过低的警告等等。<ul>
+<li>常见的Action</li>
+</ul>
+<ol>
+<li>ACTION_CALL activity 启动一个电话.</li>
+<li>ACTION_EDIT activity 显示用户编辑的数据.</li>
+<li>ACTION_MAIN activity 作为Task中第一个Activity启动</li>
+<li>ACTION_SYNC activity 同步手机与数据服务器上的数据.</li>
+<li>ACTION_BATTERY_LOW broadcast receiver 电池电量过低警告.</li>
+<li>ACTION_HEADSET_PLUG broadcast receiver 插拔耳机警告</li>
+<li>ACTION_SCREEN_ON broadcast receiver 屏幕变亮警告.</li>
+<li>ACTION_TIMEZONE_CHANGED broadcast receiver 改变时区警告.</li>
+</ol>
+</li>
+<li><strong>Data</strong>-用于传输的数据</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>方法名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Activity-视图</td>
+<td>startActivity(intent) , startActivityForResult(intent,requestCode)</td>
+</tr>
+<tr>
+<td>Servic-服务</td>
+<td>startService(Intent service) , bindService(Intent service, ServiceConnection conn,int flags)</td>
+</tr>
+<tr>
+<td>Broadcasts-广播</td>
+<td>sendBroadcast()-该方法有很多的方式调用,sendOrderedBroadcasts-有2个函数，根据情况使用</td>
+</tr>
+</tbody>
+</table>
+<p>其中广播的Intent参数的 <em>RequiresPermission</em> 修饰符表示需要许可，即要权限。</p>
+<p><img src="media/14949046942266/14958464865233.jpg" alt="">开启调试模式</p>
+<h3 id="别人的项目需要配置的地方"><a href="#别人的项目需要配置的地方" class="headerlink" title="别人的项目需要配置的地方"></a>别人的项目需要配置的地方</h3><p>Android Studio正确打开项目只需要两步，或者说找到两个文件进行简单的修改就好，最好在打开之前进行修改</p>
+<ul>
+<li>gradle-wrapper.properities<br>查找路径：<code>/gradle/wrapper/ gradle-wrapper.properities</code>，打开后可以看到最后一行是一个地址链接，重点是链接的最后部分<em>gradle-2.10-all.zip</em>，AS不同版本对应的GradleWrapper版本号也不一样，想知道自己当前的是多少，可以在As命令行如<code>gradlew -v</code>查看，也可以新建一个项目到该路径下查看，修改完成后保存。<img src="media/14949046942266/14966427857919.jpg" alt=""></li>
+</ul>
+<ul>
+<li>build.gradle<br>第二个需要修改的文件更好找，就是我们常用的Project下的build.gradle，打开后找到如图所示位置，把<code>classpath的gradle版本号</code>也改成当前对应的就行，至于当前的版本号是多少，随便打开一个自己在本地创建的project就能知道了</li>
+</ul>
+<h3 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h3><p><strong>遇见这种错误：</strong>1) <code>Error:(199) *** Android NDK: Aborting...    .  Stop.</code><br>2)<code>Error:Execution failed for task &#39;:app:compileDebugNdk&#39;. &gt;com.android.ide.common.process.ProcessException:org.gradle.process.internal.ExecException: Process &#39;command &#39;C:\Users\vishal\android-ndk-r10d\ndk-build.cmd&#39;&#39; finished with non-zero exit value 2</code><br><strong><a href="https://stackoverflow.com/questions/28759505/execution-failed-for-task-appcompiledebugndk" target="_blank" rel="noopener">解决方法</a></strong></p>
+<h3 id="LogCat调试-Debug"><a href="#LogCat调试-Debug" class="headerlink" title="LogCat调试 Debug"></a>LogCat调试 Debug</h3><p>1，长什么样子？<br><img src="media/14949046942266/14984418584810.jpg" alt=""><img src="media/14949046942266/14984426006712.jpg" alt=""></p>
+<p>2，一般常见的输出信息<br><img src="media/14949046942266/14984422055820.jpg" alt=""><br><img src="media/14949046942266/14984422209821.jpg" alt=""><br>红色的表示错误信息，以及错误的原因</p>
+<h3 id="OptionsMenu选择菜单（点击系统菜单按钮弹出）"><a href="#OptionsMenu选择菜单（点击系统菜单按钮弹出）" class="headerlink" title="OptionsMenu选择菜单（点击系统菜单按钮弹出）"></a>OptionsMenu选择菜单（点击系统菜单按钮弹出）</h3><p>一个Activity只能有一个菜单</p>
+<ul>
+<li>创建需要重写onCreateOptionsMenu()<ul>
+<li>可用代码动态设置，调用menuadd()方法</li>
+<li>xml固定设置，使用MenuInflater.infalte()方法引用</li>
+</ul>
+</li>
+<li>监听菜单项的点击，重写onOptionsItemSelected()方法</li>
+</ul>
+<h3 id="上下文菜单-（一般是长按某个东西弹出的菜单）"><a href="#上下文菜单-（一般是长按某个东西弹出的菜单）" class="headerlink" title="上下文菜单 （一般是长按某个东西弹出的菜单）"></a>上下文菜单 （一般是长按某个东西弹出的菜单）</h3><p>一个View可以拥有一个菜单，常见于文件夹长按后弹出操作菜单</p>
+<ul>
+<li>创建需要先使用 registerForContextMenu() 注册上下文菜单 重写onCreateContextMenu()<ul>
+<li>可用代码动态设置，调用menuadd()方法</li>
+<li>xml固定设置，使用MenuInflater.infalte()方法引用</li>
+</ul>
+</li>
+<li>监听菜单项的点击，重写onContextItemSelected()方法</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/07/14915416441887/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/28/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jiang Long</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text"> 安卓学习笔记 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目结构介绍"><span class="nav-number">1.1.</span> <span class="nav-text">项目结构介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控件概述"><span class="nav-number">1.2.</span> <span class="nav-text">控件概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String的使用"><span class="nav-number">1.3.</span> <span class="nav-text">String的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implements关键字代表让一个类拥有另一个类的属性"><span class="nav-number">1.4.</span> <span class="nav-text">implements关键字代表让一个类拥有另一个类的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六大布局（布局中可以包含其他布局，可相互套用）"><span class="nav-number">1.5.</span> <span class="nav-text">六大布局（布局中可以包含其他布局，可相互套用）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线性布局（LinerLayout）"><span class="nav-number">1.5.1.</span> <span class="nav-text">线性布局（LinerLayout）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相对布局（RelativeLayout）"><span class="nav-number">1.5.2.</span> <span class="nav-text">相对布局（RelativeLayout）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#约束布局（ConstraintLayout）"><span class="nav-number">1.5.3.</span> <span class="nav-text">约束布局（ConstraintLayout）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#帧布局（FrameLayout）"><span class="nav-number">1.5.4.</span> <span class="nav-text">帧布局（FrameLayout）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对布局（AbsoluteLayout）"><span class="nav-number">1.5.5.</span> <span class="nav-text">绝对布局（AbsoluteLayout）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表格布局（TableLayout）"><span class="nav-number">1.5.6.</span> <span class="nav-text">表格布局（TableLayout）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity（相当于OC的VC）"><span class="nav-number">1.6.</span> <span class="nav-text">Activity（相当于OC的VC）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Intent-意图"><span class="nav-number">1.6.1.</span> <span class="nav-text">Intent-意图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#别人的项目需要配置的地方"><span class="nav-number">1.7.</span> <span class="nav-text">别人的项目需要配置的地方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误"><span class="nav-number">1.8.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LogCat调试-Debug"><span class="nav-number">1.9.</span> <span class="nav-text">LogCat调试 Debug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OptionsMenu选择菜单（点击系统菜单按钮弹出）"><span class="nav-number">1.10.</span> <span class="nav-text">OptionsMenu选择菜单（点击系统菜单按钮弹出）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文菜单-（一般是长按某个东西弹出的菜单）"><span class="nav-number">1.11.</span> <span class="nav-text">上下文菜单 （一般是长按某个东西弹出的菜单）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiang Long</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

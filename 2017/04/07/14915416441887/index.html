@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Swift-语音变声播放QQ里面的变声功能是不是很搞笑？想要实现这样的功能？其实很简单，只需要使用音频引擎（AVAudioEngine）来改变节点的速率（AVAudioUnitTimePitch）、调整回声（AVAudioUnitDistortion）和混响（AVAudioUnitReverb）的值就可以达到你想要的很多效果。 [TOC] 音频录制初始化录音器1234567891011121314">
+<meta name="keywords" content="iOS,Android,Python,Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蒋龙的技术专栏">
+<meta property="og:url" content="http://yoursite.com/2017/04/07/14915416441887/index.html">
+<meta property="og:site_name" content="蒋龙的技术专栏">
+<meta property="og:description" content="Swift-语音变声播放QQ里面的变声功能是不是很搞笑？想要实现这样的功能？其实很简单，只需要使用音频引擎（AVAudioEngine）来改变节点的速率（AVAudioUnitTimePitch）、调整回声（AVAudioUnitDistortion）和混响（AVAudioUnitReverb）的值就可以达到你想要的很多效果。 [TOC] 音频录制初始化录音器1234567891011121314">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-26T03:12:46.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蒋龙的技术专栏">
+<meta name="twitter:description" content="Swift-语音变声播放QQ里面的变声功能是不是很搞笑？想要实现这样的功能？其实很简单，只需要使用音频引擎（AVAudioEngine）来改变节点的速率（AVAudioUnitTimePitch）、调整回声（AVAudioUnitDistortion）和混响（AVAudioUnitReverb）的值就可以达到你想要的很多效果。 [TOC] 音频录制初始化录音器1234567891011121314">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/07/14915416441887/">
+
+
+
+
+
+  <title> | 蒋龙的技术专栏</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蒋龙的技术专栏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">iOS、Android、Python、Flutter Coder</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/07/14915416441887/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiang Long">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒋龙的技术专栏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-07T05:07:24Z">
+                2017-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Swift-语音变声播放"><a href="#Swift-语音变声播放" class="headerlink" title="Swift-语音变声播放"></a>Swift-语音变声播放</h1><p>QQ里面的变声功能是不是很搞笑？想要实现这样的功能？其实很简单，只需要使用音频引擎（<em>AVAudioEngine</em>）来改变节点的速率（<em>AVAudioUnitTimePitch</em>）、调整回声（<em>AVAudioUnitDistortion</em>）和混响（<em>AVAudioUnitReverb</em>）的值就可以达到你想要的很多效果。</p>
+<pre><code>[TOC]
+</code></pre><h2 id="音频录制"><a href="#音频录制" class="headerlink" title="音频录制"></a>音频录制</h2><h3 id="初始化录音器"><a href="#初始化录音器" class="headerlink" title="初始化录音器"></a>初始化录音器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//初始化录音器</span><br><span class="line">func setUpRecord() -&gt; Void &#123;</span><br><span class="line">   //创建录音文件保存路径</span><br><span class="line">   let url = self.getSavePath()</span><br><span class="line">   //创建录音格式设置</span><br><span class="line">   let settingDic = self.getAudioSetting()</span><br><span class="line">   //创建录音机</span><br><span class="line">   do&#123;</span><br><span class="line">       try audioRecorder = AVAudioRecorder(url: url, settings: settingDic)</span><br><span class="line">       audioRecorder.delegate = self</span><br><span class="line">       audioRecorder.isMeteringEnabled = true</span><br><span class="line">       audioRecorder.prepareToRecord()</span><br><span class="line">       print(&quot;成功初始化&quot;)</span><br><span class="line">   &#125;</span><br><span class="line">   catch&#123;</span><br><span class="line">       print(&quot;初始化失败&quot;)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取录音权限"><a href="#获取录音权限" class="headerlink" title="获取录音权限"></a>获取录音权限</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//获取录音权限. 返回YES为无拒绝,NO为拒绝录音.</span><br><span class="line">func canRecord() -&gt; Bool &#123;</span><br><span class="line">   var canR = false</span><br><span class="line">   if (UIDevice.current.systemVersion as NSString).floatValue &gt;= 7.0 &#123;</span><br><span class="line">       let audioSession = AVAudioSession.sharedInstance()</span><br><span class="line">       if (audioSession.responds(to: #selector(AVAudioSession.requestRecordPermission(_:)))) &#123;</span><br><span class="line">           AVAudioSession.sharedInstance().requestRecordPermission(&#123;(granted: Bool)-&gt; Void in</span><br><span class="line">               </span><br><span class="line">               canR = granted</span><br><span class="line">               if granted &#123;</span><br><span class="line">                   print(&quot;granted&quot;)</span><br><span class="line">               &#125; else&#123;</span><br><span class="line">                   print(&quot;not granted&quot;)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">           </span><br><span class="line">       &#125;</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">       canR = true</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   return canR</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="长按开始录音"><a href="#长按开始录音" class="headerlink" title="长按开始录音"></a>长按开始录音</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//长按响应函数</span><br><span class="line">func longGesAction(longGes:UILongPressGestureRecognizer) -&gt; Void &#123;</span><br><span class="line">   switch longGes.state &#123;</span><br><span class="line">   case .began:</span><br><span class="line">       NSLog(&quot;录音开始&quot;)</span><br><span class="line">       //判断下是否授权使用麦克风</span><br><span class="line">       if self.canRecord() &#123;</span><br><span class="line">           audioRecorder.record()</span><br><span class="line">       &#125;</span><br><span class="line">       .....</span><br></pre></td></tr></table></figure>
+<h2 id="音频播放"><a href="#音频播放" class="headerlink" title="音频播放"></a>音频播放</h2><h3 id="创建AudioFile"><a href="#创建AudioFile" class="headerlink" title="创建AudioFile"></a>创建AudioFile</h3><p>AVAudioFile的初始化函数 <em>init(forReading fileURL: URL) throws</em> 后面跟着 <em>throws</em> 关键词，所以在调用是需要使用 Do Try Catch 来处理错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">  try audioFile = AVAudioFile(forReading: url)</span><br><span class="line">&#125; catch &#123;</span><br><span class="line">  showAlert(Alerts.AudioFileError, message: String(describing: error))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="节点速率、节距、回声、混响的调整"><a href="#节点速率、节距、回声、混响的调整" class="headerlink" title="节点速率、节距、回声、混响的调整"></a>节点速率、节距、回声、混响的调整</h3><p>在改变节点数据的时候，你需要先申请一个音频引擎，然后将修改的东西使用 <em>attach（）</em> 函数加入到引擎中。</p>
+<p><strong>速率、节距</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let changeRatePitchNode = AVAudioUnitTimePitch()</span><br><span class="line">//速率</span><br><span class="line">changeRatePitchNode.rate = rate!</span><br><span class="line">//节距</span><br><span class="line">changeRatePitchNode.pitch = pitch!</span><br></pre></td></tr></table></figure>
+<p><strong>回声</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let echoNode = AVAudioUnitDistortion()</span><br><span class="line">echoNode.loadFactoryPreset(.multiEcho1)</span><br></pre></td></tr></table></figure>
+<p><strong>混响</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let revrebNode = AVAudioUnitReverb()</span><br><span class="line">revrebNode.loadFactoryPreset(.cathedral)</span><br><span class="line">revrebNode.wetDryMix = 50</span><br></pre></td></tr></table></figure>
+<p>做完这些过后，你还需要将这些节点用音频引擎的 <em>connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?)</em> 方法拼接起来。</p>
+<h3 id="拼接所有节点"><a href="#拼接所有节点" class="headerlink" title="拼接所有节点"></a>拼接所有节点</h3><p>在这里我写了一个多参数的函数来拼接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func connectAudioNodes(_ nodes: AVAudioNode...) &#123;</span><br><span class="line">   for x in 0..&lt;nodes.count-1 &#123;</span><br><span class="line">       audioEngine.connect(nodes[x], to: nodes[x+1], format: audioFile.processingFormat)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">调用：</span><br><span class="line">connectAudioNodes(audioPlayerNode,changeRatePitchNode,audioEngine.outputNode) //记得这个 audioEngine.outputNode 是必须要的，相当于上下文的结尾</span><br></pre></td></tr></table></figure>
+<h2 id="启动播放引擎"><a href="#启动播放引擎" class="headerlink" title="启动播放引擎"></a>启动播放引擎</h2><p>在这里我加了一个计时器来停止播放</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//启动引擎 schedule to play and start the engine!</span><br><span class="line">audioPlayerNode.stop()</span><br><span class="line">audioPlayerNode.scheduleFile(audioFile, at: nil) &#123; </span><br><span class="line">  var delayInSeconds :Double = 0.0 //延迟秒数</span><br><span class="line">  if let lastRenderTime = self.audioPlayerNode.lastRenderTime, let playerTime = self.audioPlayerNode.playerTime(forNodeTime: lastRenderTime) &#123;</span><br><span class="line">      if rate != nil &#123;</span><br><span class="line">          delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime)/Double(self.audioFile.processingFormat.sampleRate)/Double(rate!)</span><br><span class="line">      &#125;else &#123;</span><br><span class="line">          delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime)/Double(self.audioFile.processingFormat.sampleRate)</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  //组装一个定时器在播放完成时调用stopAudio schedule a stop timer for when audio finishes playing</span><br><span class="line">  self.stopTimer = Timer(timeInterval: delayInSeconds, target: self, selector: #selector(VideoPlayHelper.stopAudio), userInfo: nil, repeats: false)</span><br><span class="line">  RunLoop.main.add(self.stopTimer, forMode: RunLoopMode.defaultRunLoopMode)</span><br><span class="line">&#125;</span><br><span class="line">do &#123;</span><br><span class="line">  try audioEngine.start()</span><br><span class="line">&#125; catch &#123;</span><br><span class="line">  showAlert(Alerts.AudioEngineError, message: String(describing: error))</span><br><span class="line">  return</span><br><span class="line">&#125;</span><br><span class="line">audioPlayerNode.play()</span><br></pre></td></tr></table></figure>
+<p>当然在停止的时候记得将 播放引擎、定时器、播放器都停止掉哟。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func stopAudio() &#123;</span><br><span class="line">   if audioPlayerNode != nil &#123;</span><br><span class="line">       audioPlayerNode.stop()</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   if stopTimer != nil &#123;</span><br><span class="line">       stopTimer.invalidate()</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   if audioEngine != nil &#123;</span><br><span class="line">       audioEngine.stop()</span><br><span class="line">       audioEngine.reset()</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Demo地址"><a href="#Demo地址" class="headerlink" title="Demo地址"></a>Demo地址</h2><p><a href="https://github.com/LongJiangSB/PitchPerfect" target="_blank" rel="noopener">GitHub地址</a> 你如果觉得喜欢帮忙给个Star！谢谢！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/01/14910267211434/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/16/14949046942266/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jiang Long</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift-语音变声播放"><span class="nav-number">1.</span> <span class="nav-text">Swift-语音变声播放</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#音频录制"><span class="nav-number">1.1.</span> <span class="nav-text">音频录制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化录音器"><span class="nav-number">1.1.1.</span> <span class="nav-text">初始化录音器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取录音权限"><span class="nav-number">1.1.2.</span> <span class="nav-text">获取录音权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#长按开始录音"><span class="nav-number">1.1.3.</span> <span class="nav-text">长按开始录音</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#音频播放"><span class="nav-number">1.2.</span> <span class="nav-text">音频播放</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建AudioFile"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建AudioFile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点速率、节距、回声、混响的调整"><span class="nav-number">1.2.2.</span> <span class="nav-text">节点速率、节距、回声、混响的调整</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拼接所有节点"><span class="nav-number">1.2.3.</span> <span class="nav-text">拼接所有节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动播放引擎"><span class="nav-number">1.3.</span> <span class="nav-text">启动播放引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo地址"><span class="nav-number">1.4.</span> <span class="nav-text">Demo地址</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiang Long</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
